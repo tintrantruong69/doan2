@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ShopSuaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DatHang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NhanVien_ID" Type="int" />
+          <Property Name="KhachHang_ID" Type="int" />
+          <Property Name="DienThoaiGiaoHang" Type="nvarchar" MaxLength="11" />
+          <Property Name="DiaChiGiaoHang" Type="nvarchar" MaxLength="255" />
+          <Property Name="NgayDatHang" Type="datetime" />
+          <Property Name="TinhTrang" Type="int" />
+        </EntityType>
+        <EntityType Name="DatHang_ChiTiet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DatHang_ID" Type="int" />
+          <Property Name="Sua_ID" Type="int" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="DonGia" Type="int" />
+        </EntityType>
+        <EntityType Name="HangSX">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenHangSX" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoVaTen" Type="nvarchar" MaxLength="255" />
+          <Property Name="DienThoai" Type="nvarchar" MaxLength="11" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+          <Property Name="TenDangNhap" Type="nvarchar" MaxLength="200" />
+          <Property Name="MatKhau" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="LoaiSua">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoai" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoVaTen" Type="nvarchar" MaxLength="255" />
+          <Property Name="DienThoai" Type="nvarchar" MaxLength="11" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+          <Property Name="TenDangNhap" Type="nvarchar" MaxLength="200" />
+          <Property Name="MatKhau" Type="nvarchar" MaxLength="255" />
+          <Property Name="Quyen" Type="bit" />
+        </EntityType>
+        <EntityType Name="Sua">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HangSX_ID" Type="int" />
+          <Property Name="LoaiSua_ID" Type="int" />
+          <Property Name="TenSua" Type="nvarchar" MaxLength="200" />
+          <Property Name="DonGia" Type="int" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="AnhMau" Type="nvarchar" MaxLength="255" />
+          <Property Name="MoTa" Type="ntext" />
+        </EntityType>
+        <EntityType Name="ThuKho">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoVaTen" Type="nvarchar" MaxLength="255" />
+          <Property Name="DienThoai" Type="nvarchar" MaxLength="11" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+          <Property Name="TenDangNhap" Type="nvarchar" MaxLength="200" />
+          <Property Name="MatKhau" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__DatHang__KhachHa__30F848ED">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="DatHang" Type="Self.DatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatHang">
+              <PropertyRef Name="KhachHang_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatHang__NhanVie__300424B4">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="DatHang" Type="Self.DatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatHang">
+              <PropertyRef Name="NhanVien_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatHang_C__DatHa__33D4B598">
+          <End Role="DatHang" Type="Self.DatHang" Multiplicity="0..1" />
+          <End Role="DatHang_ChiTiet" Type="Self.DatHang_ChiTiet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatHang">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatHang_ChiTiet">
+              <PropertyRef Name="DatHang_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatHang_C__Sua_I__34C8D9D1">
+          <End Role="Sua" Type="Self.Sua" Multiplicity="0..1" />
+          <End Role="DatHang_ChiTiet" Type="Self.DatHang_ChiTiet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sua">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatHang_ChiTiet">
+              <PropertyRef Name="Sua_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sua__HangSX_ID__286302EC">
+          <End Role="HangSX" Type="Self.HangSX" Multiplicity="0..1" />
+          <End Role="Sua" Type="Self.Sua" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HangSX">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sua">
+              <PropertyRef Name="HangSX_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sua__LoaiSua_ID__29572725">
+          <End Role="LoaiSua" Type="Self.LoaiSua" Multiplicity="0..1" />
+          <End Role="Sua" Type="Self.Sua" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiSua">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sua">
+              <PropertyRef Name="LoaiSua_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopSuaModelStoreContainer">
+          <EntitySet Name="DatHang" EntityType="Self.DatHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DatHang_ChiTiet" EntityType="Self.DatHang_ChiTiet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HangSX" EntityType="Self.HangSX" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiSua" EntityType="Self.LoaiSua" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sua" EntityType="Self.Sua" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ThuKho" EntityType="Self.ThuKho" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DatHang__KhachHa__30F848ED" Association="Self.FK__DatHang__KhachHa__30F848ED">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="DatHang" EntitySet="DatHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatHang__NhanVie__300424B4" Association="Self.FK__DatHang__NhanVie__300424B4">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="DatHang" EntitySet="DatHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatHang_C__DatHa__33D4B598" Association="Self.FK__DatHang_C__DatHa__33D4B598">
+            <End Role="DatHang" EntitySet="DatHang" />
+            <End Role="DatHang_ChiTiet" EntitySet="DatHang_ChiTiet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatHang_C__Sua_I__34C8D9D1" Association="Self.FK__DatHang_C__Sua_I__34C8D9D1">
+            <End Role="Sua" EntitySet="Sua" />
+            <End Role="DatHang_ChiTiet" EntitySet="DatHang_ChiTiet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sua__HangSX_ID__286302EC" Association="Self.FK__Sua__HangSX_ID__286302EC">
+            <End Role="HangSX" EntitySet="HangSX" />
+            <End Role="Sua" EntitySet="Sua" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sua__LoaiSua_ID__29572725" Association="Self.FK__Sua__LoaiSua_ID__29572725">
+            <End Role="LoaiSua" EntitySet="LoaiSua" />
+            <End Role="Sua" EntitySet="Sua" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShopSuaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DatHang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NhanVien_ID" Type="Int32" />
+          <Property Name="KhachHang_ID" Type="Int32" />
+          <Property Name="DienThoaiGiaoHang" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChiGiaoHang" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NgayDatHang" Type="DateTime" Precision="3" />
+          <Property Name="TinhTrang" Type="Int32" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK__DatHang__KhachHa__30F848ED" FromRole="DatHang" ToRole="KhachHang" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK__DatHang__NhanVie__300424B4" FromRole="DatHang" ToRole="NhanVien" />
+          <NavigationProperty Name="DatHang_ChiTiet" Relationship="Self.FK__DatHang_C__DatHa__33D4B598" FromRole="DatHang" ToRole="DatHang_ChiTiet" />
+        </EntityType>
+        <EntityType Name="DatHang_ChiTiet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatHang_ID" Type="Int32" />
+          <Property Name="Sua_ID" Type="Int32" />
+          <Property Name="SoLuong" Type="Int32" />
+          <Property Name="DonGia" Type="Int32" />
+          <NavigationProperty Name="DatHang" Relationship="Self.FK__DatHang_C__DatHa__33D4B598" FromRole="DatHang_ChiTiet" ToRole="DatHang" />
+          <NavigationProperty Name="Sua" Relationship="Self.FK__DatHang_C__Sua_I__34C8D9D1" FromRole="DatHang_ChiTiet" ToRole="Sua" />
+        </EntityType>
+        <EntityType Name="HangSX">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenHangSX" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sua" Relationship="Self.FK__Sua__HangSX_ID__286302EC" FromRole="HangSX" ToRole="Sua" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoVaTen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DienThoai" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenDangNhap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MatKhau" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DatHang" Relationship="Self.FK__DatHang__KhachHa__30F848ED" FromRole="KhachHang" ToRole="DatHang" />
+        </EntityType>
+        <EntityType Name="LoaiSua">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoai" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sua" Relationship="Self.FK__Sua__LoaiSua_ID__29572725" FromRole="LoaiSua" ToRole="Sua" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoVaTen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DienThoai" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenDangNhap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MatKhau" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Quyen" Type="Boolean" />
+          <NavigationProperty Name="DatHang" Relationship="Self.FK__DatHang__NhanVie__300424B4" FromRole="NhanVien" ToRole="DatHang" />
+        </EntityType>
+        <EntityType Name="Sua">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HangSX_ID" Type="Int32" />
+          <Property Name="LoaiSua_ID" Type="Int32" />
+          <Property Name="TenSua" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DonGia" Type="Int32" />
+          <Property Name="SoLuong" Type="Int32" />
+          <Property Name="AnhMau" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DatHang_ChiTiet" Relationship="Self.FK__DatHang_C__Sua_I__34C8D9D1" FromRole="Sua" ToRole="DatHang_ChiTiet" />
+          <NavigationProperty Name="HangSX" Relationship="Self.FK__Sua__HangSX_ID__286302EC" FromRole="Sua" ToRole="HangSX" />
+          <NavigationProperty Name="LoaiSua" Relationship="Self.FK__Sua__LoaiSua_ID__29572725" FromRole="Sua" ToRole="LoaiSua" />
+        </EntityType>
+        <EntityType Name="ThuKho">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoVaTen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DienThoai" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenDangNhap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MatKhau" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__DatHang__KhachHa__30F848ED">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="DatHang" Type="Self.DatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatHang">
+              <PropertyRef Name="KhachHang_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatHang__NhanVie__300424B4">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="DatHang" Type="Self.DatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatHang">
+              <PropertyRef Name="NhanVien_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatHang_C__DatHa__33D4B598">
+          <End Role="DatHang" Type="Self.DatHang" Multiplicity="0..1" />
+          <End Role="DatHang_ChiTiet" Type="Self.DatHang_ChiTiet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatHang">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatHang_ChiTiet">
+              <PropertyRef Name="DatHang_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatHang_C__Sua_I__34C8D9D1">
+          <End Role="Sua" Type="Self.Sua" Multiplicity="0..1" />
+          <End Role="DatHang_ChiTiet" Type="Self.DatHang_ChiTiet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sua">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatHang_ChiTiet">
+              <PropertyRef Name="Sua_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sua__HangSX_ID__286302EC">
+          <End Role="HangSX" Type="Self.HangSX" Multiplicity="0..1" />
+          <End Role="Sua" Type="Self.Sua" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HangSX">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sua">
+              <PropertyRef Name="HangSX_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sua__LoaiSua_ID__29572725">
+          <End Role="LoaiSua" Type="Self.LoaiSua" Multiplicity="0..1" />
+          <End Role="Sua" Type="Self.Sua" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiSua">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sua">
+              <PropertyRef Name="LoaiSua_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopSuaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DatHang" EntityType="Self.DatHang" />
+          <EntitySet Name="DatHang_ChiTiet" EntityType="Self.DatHang_ChiTiet" />
+          <EntitySet Name="HangSX" EntityType="Self.HangSX" />
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" />
+          <EntitySet Name="LoaiSua" EntityType="Self.LoaiSua" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" />
+          <EntitySet Name="Sua" EntityType="Self.Sua" />
+          <EntitySet Name="ThuKho" EntityType="Self.ThuKho" />
+          <AssociationSet Name="FK__DatHang__KhachHa__30F848ED" Association="Self.FK__DatHang__KhachHa__30F848ED">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="DatHang" EntitySet="DatHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatHang__NhanVie__300424B4" Association="Self.FK__DatHang__NhanVie__300424B4">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="DatHang" EntitySet="DatHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatHang_C__DatHa__33D4B598" Association="Self.FK__DatHang_C__DatHa__33D4B598">
+            <End Role="DatHang" EntitySet="DatHang" />
+            <End Role="DatHang_ChiTiet" EntitySet="DatHang_ChiTiet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatHang_C__Sua_I__34C8D9D1" Association="Self.FK__DatHang_C__Sua_I__34C8D9D1">
+            <End Role="Sua" EntitySet="Sua" />
+            <End Role="DatHang_ChiTiet" EntitySet="DatHang_ChiTiet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sua__HangSX_ID__286302EC" Association="Self.FK__Sua__HangSX_ID__286302EC">
+            <End Role="HangSX" EntitySet="HangSX" />
+            <End Role="Sua" EntitySet="Sua" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sua__LoaiSua_ID__29572725" Association="Self.FK__Sua__LoaiSua_ID__29572725">
+            <End Role="LoaiSua" EntitySet="LoaiSua" />
+            <End Role="Sua" EntitySet="Sua" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShopSuaModelStoreContainer" CdmEntityContainer="ShopSuaEntities">
+          <EntitySetMapping Name="DatHang">
+            <EntityTypeMapping TypeName="ShopSuaModel.DatHang">
+              <MappingFragment StoreEntitySet="DatHang">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NhanVien_ID" ColumnName="NhanVien_ID" />
+                <ScalarProperty Name="KhachHang_ID" ColumnName="KhachHang_ID" />
+                <ScalarProperty Name="DienThoaiGiaoHang" ColumnName="DienThoaiGiaoHang" />
+                <ScalarProperty Name="DiaChiGiaoHang" ColumnName="DiaChiGiaoHang" />
+                <ScalarProperty Name="NgayDatHang" ColumnName="NgayDatHang" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DatHang_ChiTiet">
+            <EntityTypeMapping TypeName="ShopSuaModel.DatHang_ChiTiet">
+              <MappingFragment StoreEntitySet="DatHang_ChiTiet">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DatHang_ID" ColumnName="DatHang_ID" />
+                <ScalarProperty Name="Sua_ID" ColumnName="Sua_ID" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HangSX">
+            <EntityTypeMapping TypeName="ShopSuaModel.HangSX">
+              <MappingFragment StoreEntitySet="HangSX">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TenHangSX" ColumnName="TenHangSX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHang">
+            <EntityTypeMapping TypeName="ShopSuaModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiSua">
+            <EntityTypeMapping TypeName="ShopSuaModel.LoaiSua">
+              <MappingFragment StoreEntitySet="LoaiSua">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanVien">
+            <EntityTypeMapping TypeName="ShopSuaModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="Quyen" ColumnName="Quyen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sua">
+            <EntityTypeMapping TypeName="ShopSuaModel.Sua">
+              <MappingFragment StoreEntitySet="Sua">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HangSX_ID" ColumnName="HangSX_ID" />
+                <ScalarProperty Name="LoaiSua_ID" ColumnName="LoaiSua_ID" />
+                <ScalarProperty Name="TenSua" ColumnName="TenSua" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="AnhMau" ColumnName="AnhMau" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThuKho">
+            <EntityTypeMapping TypeName="ShopSuaModel.ThuKho">
+              <MappingFragment StoreEntitySet="ThuKho">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
