@@ -30,9 +30,6 @@ namespace QuanLiSua.Controllers
 							   HinhAnhBia = sp.AnhMau,
 							   MoTa = sp.MoTa,
 							   HangSX = sp.HangSX,
-
-
-
 						   }).ToList();
 
 			return View(ChiTiet);
@@ -107,38 +104,37 @@ namespace QuanLiSua.Controllers
 		// POST: Home/ChangePassword
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult ChangePassword([Bind(Include = "MatKhau,MatKhauMoi,XacNhanMatKhauMoi")] ChangePassword ChangePassword)
+		public ActionResult ChangePassword(ChangePassword khachHang)
 		{
+
 			if (ModelState.IsValid)
 			{
-				int makh = Convert.ToInt32(Session["MaKhachHang"]);
-				KhachHang khachHang = db.KhachHang.Find(makh);
-				if (khachHang == null)
-				{
-					return HttpNotFound();
-				}
-				ChangePassword.MatKhauCu = SHA1.ComputeHash(ChangePassword.MatKhauCu);
-				if (khachHang.MatKhau == ChangePassword.MatKhauCu)
-				{
-					ChangePassword.MatKhauMoi = SHA1.ComputeHash(ChangePassword.MatKhauMoi);
-					ChangePassword.XacNhanMatKhau = ChangePassword.MatKhauMoi;
 
-					khachHang.MatKhau = ChangePassword.MatKhauMoi;
-					khachHang.XacNhanMatKhau = ChangePassword.MatKhauMoi;
+				string matKhauCu = SHA1.ComputeHash(khachHang.MatKhauCu);
+				string matKhauMoi = SHA1.ComputeHash(khachHang.MatKhauMoi);
+				string xacnhanmatkhau = SHA1.ComputeHash(khachHang.XacNhanMatKhau);
+				string tendangnhap = Session["TenDangNhap"].ToString();
+				var taiKhoan = db.KhachHang.Where(r => r.TenDangNhap == tendangnhap && r.MatKhau == matKhauCu).SingleOrDefault();
 
-					db.Entry(khachHang).State = EntityState.Modified;
-					db.SaveChanges();
-					return RedirectToAction("Logout", "Home");
+				if (taiKhoan == null)
+				{
+					ModelState.AddModelError("ChangePassword", "Tên đăng nhập hoặc mật khẩu không chính xác!");
+					return View(khachHang);
 				}
 				else
 				{
-					ViewBag.error = "Mật khẩu cũ không đúng !!!";
-					return View();
+					if (matKhauMoi == xacnhanmatkhau)
+					{
+						taiKhoan.MatKhau = matKhauMoi;
+						taiKhoan.XacNhanMatKhau = matKhauMoi;
+						db.Entry(taiKhoan).State = EntityState.Modified;
+						db.SaveChanges();
+						ModelState.AddModelError("ChangePasswordSucess", "Đổi mật khẩu thành công");
+						return View(khachHang);
+					}
 				}
-
-
 			}
-			return View(ChangePassword);
+			return View(khachHang);
 		}
 
 

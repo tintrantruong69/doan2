@@ -112,6 +112,7 @@ namespace QuanLiSua.Areas.Admin.Controllers
             }
             ViewBag.HangSX_ID = new SelectList(db.HangSX, "ID", "TenHangSX", sua.HangSX_ID);
             ViewBag.LoaiSua_ID = new SelectList(db.LoaiSua, "ID", "TenLoai", sua.LoaiSua_ID);
+            ModelState.AddModelError("UploadError", "");
             return View(sua);
         }
 
@@ -120,18 +121,57 @@ namespace QuanLiSua.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,HangSX_ID,LoaiSua_ID,TenSua,DonGia,SoLuong,AnhMau,MoTa")] Sua sua)
+        public ActionResult Edit([Bind(Include = "ID,HangSX_ID,LoaiSua_ID,TenSua,DonGia,SoLuong,HinhAnhBia,MoTa")] Sua sua)
         {
-            if (ModelState.IsValid)
+            ViewBag.HangSX_ID = new SelectList(db.HangSX, "ID", "TenHangSX", sua.HangSX_ID);
+            ViewBag.LoaiSua_ID = new SelectList(db.LoaiSua, "ID", "TenLoai", sua.LoaiSua_ID);
+            if (!ModelState.IsValid)
+            {
+                if (sua.HinhAnhBia != null)
+            {
+                // Xóa ảnh cũ
+                string oldFilePath = Server.MapPath("~/" + sua.AnhMau);
+                if (System.IO.File.Exists(oldFilePath)) System.IO.File.Delete(oldFilePath);
+
+                string folder = "Storage/";
+                string fileExtension = Path.GetExtension(sua.HinhAnhBia.FileName).ToLower();
+
+                // Kiểm tra kiểu
+                var fileTypeSupported = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                if (!fileTypeSupported.Contains(fileExtension))
+                {
+                    ModelState.AddModelError("UploadError", "Chỉ cho phép tập tin JPG, PNG, GIF!");
+                    return View(sua);
+                }
+                else if (sua.HinhAnhBia.ContentLength > 2 * 1024 * 1024)
+                {
+                    ModelState.AddModelError("UploadError", "Chỉ cho phép tập tin từ 2MB trở xuống!");
+                    return View(sua);
+                }
+                else
+                {
+                    string fileName = Guid.NewGuid().ToString() + fileExtension;
+                    string filePath = Path.Combine(Server.MapPath("~/" + folder), fileName);
+                    sua.HinhAnhBia.SaveAs(filePath);
+
+                    // Cập nhật đường dẫn vào CSDL
+                    sua.AnhMau = folder + fileName;
+
+                    db.Entry(sua).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            else // Giữ nguyên ảnh cũ
             {
                 db.Entry(sua).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.HangSX_ID = new SelectList(db.HangSX, "ID", "TenHangSX", sua.HangSX_ID);
-            ViewBag.LoaiSua_ID = new SelectList(db.LoaiSua, "ID", "TenLoai", sua.LoaiSua_ID);
-            return View(sua);
         }
+
+            return View(sua);
+    }
 
         // GET: Admin/Sua/Delete/5
         public ActionResult Delete(int? id)
