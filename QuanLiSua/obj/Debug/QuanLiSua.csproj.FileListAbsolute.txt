@@ -183,8 +183,8 @@ E:\Dô án 2\doan2\QuanLiSua\bin\System.Web.WebPages.xml
 E:\Dô án 2\doan2\QuanLiSua\bin\System.Web.WebPages.Deployment.xml
 E:\Dô án 2\doan2\QuanLiSua\bin\System.Web.WebPages.Razor.xml
 E:\Dô án 2\doan2\QuanLiSua\bin\Antlr3.Runtime.pdb
-E:\Dô án 2\doan2\QuanLiSua\obj\Debug\QuanLiSua.csproj.AssemblyReference.cache
 E:\Dô án 2\doan2\QuanLiSua\obj\Debug\QuanLiSua.csproj.CoreCompileInputs.cache
 E:\Dô án 2\doan2\QuanLiSua\obj\Debug\QuanLiSua.csproj.CopyComplete
 E:\Dô án 2\doan2\QuanLiSua\obj\Debug\QuanLiSua.dll
 E:\Dô án 2\doan2\QuanLiSua\obj\Debug\QuanLiSua.pdb
+E:\Dô án 2\doan2\QuanLiSua\obj\Debug\QuanLiSua.csproj.AssemblyReference.cache

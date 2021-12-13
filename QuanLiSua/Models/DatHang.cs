@@ -28,15 +28,10 @@ namespace QuanLiSua.Models
         public Nullable<int> NhanVien_ID { get; set; }
 
         [Display(Name = "Mã Khách hàng")]
-        public Nullable<int> KhachHang_ID { get; set; }
-
-        [Display(Name = "Điện thoại giao hàng")]
+        public Nullable<int> KhachHang_ID { get; set; }      
         public string DienThoaiGiaoHang { get; set; }
-        [Required(ErrorMessage = "Điện thoại giao hàng không được bỏ trống!")]
-
-        [Display(Name = "Địa chỉ giao hàng")]
-        public string DiaChiGiaoHang { get; set; }
-        [Required(ErrorMessage = "Địa chỉ giao hàng không được bỏ trống!")]
+  
+        public string DiaChiGiaoHang { get; set; }    
 
         [Display(Name = "Đặt hàng")]
         [DataType(DataType.DateTime)]

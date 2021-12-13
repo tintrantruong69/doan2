@@ -1,88 +1,86 @@
-﻿@model IEnumerable<QuanLiSua.Models.DonHangCuaToi>
-
+﻿@model IEnumerable<QuanLiSua.Models.DatHang>
 @{
     ViewBag.Title = "Đơn hàng của tôi";
 }
 
-
-
-<div class="card mt-3">
-    <h5 class="card-header" style="background-color: #f4e0fc">@ViewBag.Title</h5>
+<div class="card border border-info mt-3">
+    <h5 class="card-header bg-info text-white text-center font-weight-bold">@ViewBag.Title (@Model.Count())</i></h5>
     <div class="card-body">
-        <table class="table table-bordered table-hover table-sm">
-            <tr>
-                <th width="5%">STT</th>
-                <th>Hình ảnh</th>
-                <th>Sách</th>
-                <th width="10%">Số lượng</th>
-                <th>Đơn giá</th>
-                <th>Thành tiền</th>
-                <th>Thời gian đặt hàng</th>
-                <th>Tình trạng</th>
-            </tr>
-
-            @{int stt = 1;}
-            @foreach (var item in Model)
+        <div class="card-deck">
+            @if (Session["MaKhachHang"] != null)
             {
-                <tr>
-                    <td>#</td>
-                    <td><img src="~/@item.HinhAnhBia" width="50" /></td>
-                    <td>@item.TenSua</td>
-                    <td>@item.SoLuong</td>
-                    <td class="card-text text-center">@String.Format("{0:N0}", item.DonGia)</td>
-                    <td class="text-right">@(item.SoLuong * item.DonGia)</td>
-                    <td>@item.NgayDatHang</td>
-                    <td>
-                        @if (item.TinhTrang == 0)
-                        {
-                            <span>Đơn hàng mới</span>
-                        }
-                        else if (item.TinhTrang == 1)
-                        {
-                            <span>Đang xác nhận</span>
-                        }
-                        else if (item.TinhTrang == 2)
-                        {
-                            <span>Đã hủy</span>
-                        }
-                        else if (item.TinhTrang == 3)
-                        {
-                            <span>Đang đóng gói</span>
-                        }
-                        else if (item.TinhTrang == 4)
-                        {
-                            <span>Đang gởi vận chuyển</span>
-                        }
-                        else if (item.TinhTrang == 5)
-                        {
-                            <span>Đang chuyển</span>
-                        }
-                        else if (item.TinhTrang == 6)
-                        {
-                            <span>Thất bại</span>
-                        }
-                        else if (item.TinhTrang == 7)
-                        {
-                            <span>Đang chuyển hoàn</span>
-                        }
-                        else if (item.TinhTrang == 8)
-                        {
-                            <span>Đã chuyển hoàn</span>
-                        }
-                        else
-                        {
-                            <span>Thành công</span>
-                        }
-                    </td>
-                </tr>
-                stt++;
+                if (Model.Count() > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                            <div class="card list-laptop mt-2 shadow mb-2 text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-left">Mã đặt hàng: @item.ID</h5>
+                                    <p class="card-text text-left font-weight-light"><span>Ngày đặt: </span>@item.NgayDatHang</p>
+                                    <p class="card-text text-left"><span>Số điện thoại: </span>@item.DienThoaiGiaoHang</p>
+                                    <p class="card-text text-left"><span>Địa chỉ giao : </span>@item.DiaChiGiaoHang</p>
+                                    <p class="card-text text-left"><span>Tổng tiền: </span>@item.DatHang_ChiTiet.Sum(r => r.DonGia)</p>
+                                    <p class="card-text text-left"><span>Tổng sản phẩm: </span>@item.DatHang_ChiTiet.Sum(r => r.SoLuong)</p>
+                                    @if (item.TinhTrang == 0)
+                                    {
+                                        <p class="card-text text-white badge badge-info"><span>Tình trạng đơn hàng: </span>Đơn hàng mới</p>
+                                    }
+                                    else if (item.TinhTrang == 1)
+                                    {
+                                        <p class="card-text text-warning badge badge-primary"><span>Tình trạng đơn hàng: </span>Đang xác nhận</p>
+                                    }
+                                    else if (item.TinhTrang == 2)
+                                    {
+                                        <p class="card-text badge badge-info text-dark"><span>Tình trạng đơn hàng: </span>Đã hũy</p>
+                                    }
+                                    else if (item.TinhTrang == 3)
+                                    {
+                                        <p class="card-text badge badge-info text-danger"><span>Tình trạng đơn hàng: </span>Đang đóng gói</p>
+                                    }
+                                    else if (item.TinhTrang == 4)
+                                    {
+                                        <p class="card-text badge badge-info text-dark"><span>Tình trạng đơn hàng: </span>Đang gởi vận chuyển</p>
+                                    }
+                                    else if (item.TinhTrang == 5)
+                                    {
+                                        <p class="card-text badge badge-info text-warning"><span>Tình trạng đơn hàng: </span>Đang chuyển</p>
+                                    }
+                                    else if (item.TinhTrang == 6)
+                                    {
+                                        <p class="card-text badge badge-danger text-dark"><span>Tình trạng đơn hàng: </span>Thất bại</p>
+                                    }
+                                    else if (item.TinhTrang == 7)
+                                    {
+                                        <p class="card-text badge badge-primary text-white"><span>Tình trạng đơn hàng: </span>Đang chuyển hoàn</p>
+                                    }
+                                    else if (item.TinhTrang == 8)
+                                    {
+                                        <p class="card-text badge badge-white text-primary"><span>Tình trạng đơn hàng: </span>Đã chuyển hoàn</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text text-primary" style="font-weight:bold"><span>Tình trạng đơn hàng: </span>Thành công</p>
+                                    }
+                                    <!--Nút hủy và xem chi tiết-->
+                                    <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Xem chi tiết" href="@Url.Action("DonHangChiTiet", "Home", new { id = item.ID })"><i class="fas fa-eye"></i></a>
+                                    <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Hủy đơn hàng" href="@Url.Action("HuyDonHang", "Home", new { id = item.ID })"><i class="fas fa-times"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span class="badge badge-info text-white">Hiện tại bạn không có đơn hàng nào</span>
+                }
             }
-
-        </table>
-
+            else
+            {
+                <span> Vui lòng <a href="@Url.Action("Login","Home")">đăng nhập</a> để xem đơn hàng </span>
+            }
+        </div>
     </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+

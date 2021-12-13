@@ -11,7 +11,7 @@ namespace QuanLiSua.Models
         public int soLuongTrongGio { get; set; }
     }
 
-    public class DonHangCuaToi
+   /* public class DonHangCuaToi
     {
         public int ID { get; set; }
         public string TenSua { get; set; }
@@ -22,5 +22,5 @@ namespace QuanLiSua.Models
         public Nullable<System.DateTime> NgayDatHang { get; set; }
         public Nullable<short> TinhTrang { get; set; }
 
-    }
+    }*/
 }

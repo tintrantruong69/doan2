@@ -39,7 +39,8 @@
                                 @Session["HoTenKhachHang"].ToString()
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="@Url.Action("MyOders", "Home")"><i class="fal fa-fw fa-file-chart-pie"></i> Đơn hàng của tôi</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "GioHang")"><i class="fal fa-fw fa-shopping-cart"></i> Giỏ hàng của tôi</a>
+                                <a class="dropdown-item" href="@Url.Action("MyOrders", "Home")"><i class="fal fa-fw fa-file-chart-pie"></i> Đơn hàng của tôi</a>
                                 <a class="dropdown-item" href="@Url.Action("ChangePassword", "Home")"><i class="fal fa-fw fa-key"></i> Đổi mật khẩu</a>
                                 <a class="dropdown-item" href="@Url.Action("Logout", "Home")"><i class="fal fa-fw fa-sign-out-alt"></i> Đăng xuất</a>
                             </div>

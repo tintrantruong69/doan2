@@ -18,7 +18,7 @@ namespace QuanLiSua.Controllers
 			return View(t);
 		}
 
-		public ActionResult ChiTiet(int masp)
+		/*public ActionResult ChiTiet(int masp)
 		{
 			var ChiTiet = (from sp in db.Sua
 						   where (sp.ID == masp)
@@ -33,8 +33,12 @@ namespace QuanLiSua.Controllers
 						   }).ToList();
 
 			return View(ChiTiet);
+		}*/
+		public ActionResult ChiTiet(int id)
+		{
+			var t = db.Sua.Where(r => r.SoLuong > 0 && r.ID == id).SingleOrDefault();
+			return View(t);
 		}
-		
 		public ActionResult MuaNhieuNhat()
 		{
 			var ShopPhone = db.DatHang_ChiTiet.Where(r => r.SoLuong > 0).OrderByDescending(r => r.SoLuong).ToList();
@@ -222,17 +226,30 @@ namespace QuanLiSua.Controllers
 
 			return View(datHang);
 		}
-		public ActionResult MyOders()
+		public ActionResult MyOrders()
 		{
 			int makh = Convert.ToInt32(Session["MaKhachHang"].ToString());
-			var dh = db.DatHang_ChiTiet.Where(r => r.DatHang.KhachHang_ID == makh && r.DatHang.TinhTrang != 3).ToList();
+			var dh = db.DatHang.Where(r => r.KhachHang_ID == makh && r.TinhTrang != 3).ToList();
 			return View(dh);
 		}
-		/*public ActionResult MyOders()
+		public ActionResult DonHangChiTiet(int id)
 		{
-			/*int makh = Convert.ToInt32(Session["MaKhachHang"].ToString());
-			var dh = db.DatHang_ChiTiet.Where(r => r.DatHang.KhachHang_ID == makh && r.DatHang.TinhTrang != 3).ToList();
-			return View(dh);*/
+			// lấy thằng mã khách hàng
+			var donhangchitiet = db.DatHang_ChiTiet.Where(r => r.DatHang_ID == id).ToList();
+			return View(donhangchitiet);
+		}
+
+		public ActionResult HuyDonHang(int id)
+		{
+			DatHang datHang = db.DatHang.Find(id);
+			if (ModelState.IsValid)
+			{
+				datHang.TinhTrang = 2;
+
+				db.SaveChanges();
+			}
+			return RedirectToAction("DonHangCuaToi");
+		}
 
 		/*int makh = Convert.ToInt32(Session["MaKhachHang"]);
 		var DonHangCuaToi = (from sp in db.Sua

@@ -332,6 +332,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\Home\ThanhToan.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -397,7 +398,7 @@
     <Content Include="Views\Home\MyOrders.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\GioHang\Index.cshtml" />
-    <Content Include="Views\Home\ThanhToan.cshtml" />
+    <Content Include="Views\Home\DonHangChiTiet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
