@@ -222,7 +222,12 @@ namespace QuanLiSua.Controllers
 
 			return View(datHang);
 		}
-
+		public ActionResult MyOders()
+		{
+			int makh = Convert.ToInt32(Session["MaKhachHang"].ToString());
+			var dh = db.DatHang_ChiTiet.Where(r => r.DatHang.KhachHang_ID == makh && r.DatHang.TinhTrang != 3).ToList();
+			return View(dh);
+		}
 		/*public ActionResult MyOders()
 		{
 			/*int makh = Convert.ToInt32(Session["MaKhachHang"].ToString());

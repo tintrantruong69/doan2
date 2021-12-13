@@ -396,8 +396,8 @@
     <Content Include="Views\Home\MuaNhieuNhat.cshtml" />
     <Content Include="Views\Home\MyOrders.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\GioHang\Index.cshtml" />
     <Content Include="Views\Home\ThanhToan.cshtml" />
-    <Content Include="Views\Giỏ Hàng\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

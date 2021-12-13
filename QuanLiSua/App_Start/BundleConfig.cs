@@ -24,7 +24,9 @@ namespace QuanLiSua
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                       "~/Content/Site.css",
+                      "~/Content/all.min.css",
+                      "~/Content/font-awesome.css"));
         }
     }
 }
