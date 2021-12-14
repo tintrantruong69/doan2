@@ -52,9 +52,10 @@ namespace QuanLiSua.Areas.Admin.Controllers
 		}
 		public ActionResult Logout()
 		{
-			Session.Remove("MaKhachHang");
-			Session.Remove("HoTenKhachHang");
+			Session.Remove("MaNhanVien");
+			Session.Remove("HoTenNhanVien");
 			Session.Remove("TenDangNhap");
+			Session.Remove("Quyen");
 			return RedirectToAction("Login", "Home");
 		}
 		// POST: Home/Login
