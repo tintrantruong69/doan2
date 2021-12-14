@@ -33,31 +33,38 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoVaTen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DienThoai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiaChi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenDangNhap)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MatKhau)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quyen)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.HoVaTen)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DienThoai)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DiaChi)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TenDangNhap)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MatKhau)
+    </td>
+    <td>
+        @if (item.Quyen == true)
+        {
+            <span class="badge badge-primary">Quản lý</span>
+        }
+        else
+        {
+            <span class="badge badge-success">Nhân viên</span>
+        }
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+    </td>
+</tr>
 }
 
 </table>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using QuanLiSua.Libs;
 using QuanLiSua.Models;
 
 namespace QuanLiSua.Areas.Admin.Controllers
@@ -46,10 +47,12 @@ namespace QuanLiSua.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,HoVaTen,DienThoai,DiaChi,TenDangNhap,MatKhau,Quyen")] NhanVien nhanVien)
+        public ActionResult Create([Bind(Include = "ID,HoVaTen,DienThoai,DiaChi,TenDangNhap,MatKhau,XacNhanMatKhau,Quyen")] NhanVien nhanVien)
         {
             if (ModelState.IsValid)
             {
+                nhanVien.MatKhau = SHA1.ComputeHash(nhanVien.MatKhau);
+                nhanVien.XacNhanMatKhau = SHA1.ComputeHash(nhanVien.XacNhanMatKhau);
                 db.NhanVien.Add(nhanVien);
                 db.SaveChanges();
                 return RedirectToAction("Index");
