@@ -17,8 +17,22 @@ namespace QuanLiSua.Areas.Admin.Controllers
 			var t = db.Sua.Where(r => r.SoLuong > 0);
 			return View(t);
 		}
+		public ActionResult ChiTiet(int id)
+		{
+			var t = db.Sua.Where(r => r.SoLuong > 0 && r.ID == id).SingleOrDefault();
+			return View(t);
+		}
+		[HttpPost]
+		public ActionResult Search(FormCollection collection)
+		{
+			// contains chứa
+			string text_search = collection["TuKhoa"].ToString();
 
-        public ActionResult About()
+			var baikiem_search = db.Sua.Where(r => r.SoLuong > 1 && (r.TenSua.Contains(text_search))).ToList();
+			return View(baikiem_search);
+		}
+
+		public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
