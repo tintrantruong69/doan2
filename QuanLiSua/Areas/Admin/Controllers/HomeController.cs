@@ -50,7 +50,13 @@ namespace QuanLiSua.Areas.Admin.Controllers
 			ModelState.AddModelError("LoginError", "");
 			return View();
 		}
-
+		public ActionResult Logout()
+		{
+			Session.Remove("MaKhachHang");
+			Session.Remove("HoTenKhachHang");
+			Session.Remove("TenDangNhap");
+			return RedirectToAction("Login", "Home");
+		}
 		// POST: Home/Login
 		[HttpPost]
 		[ValidateAntiForgeryToken]

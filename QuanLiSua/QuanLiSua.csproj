@@ -252,6 +252,8 @@
     <Content Include="Areas\Admin\Views\Sua\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\ChangePassword.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\ChiTiet.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Search.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
